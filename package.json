@@ -1,0 +1,44 @@
+{
+  "name": "homepage",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx,.astro ."
+  },
+  "dependencies": {
+    "astro": "^3.0.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.41.0",
+    "@iconify-json/mdi": "^1.1.54",
+    "@unocss/reset": "^0.55.7",
+    "eslint": "^8.48.0",
+    "eslint-plugin-astro": "^0.29.0",
+    "unocss": "^0.55.7",
+    "vite-plugin-inspect": "^0.7.38"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@antfu",
+      "plugin:astro/recommended"
+    ],
+    "rules": {
+      "semi": "off",
+      "quotes": "off",
+      "@typescript-eslint/semi": [
+        "warn",
+        "always"
+      ],
+      "@typescript-eslint/quotes": [
+        "warn",
+        "double"
+      ]
+    }
+  }
+}

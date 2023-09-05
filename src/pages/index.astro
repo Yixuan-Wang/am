@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+
+const links = [
+  {
+    name: "GitHub",
+    icon: "i-mdi-github",
+    url: "https://github.com/Yixuan-Wang",
+  },
+  {
+    name: "Twitter",
+    icon: "i-mdi-twitter",
+    url: "https://twitter.com/tom_yixuan_wang",
+  },
+  {
+    name: "Mastodon",
+    icon: "i-mdi-mastodon",
+    url: "https://sigmoid.social/@tom_yixuan_wang",
+  },
+];
+---
+
+<Layout title="Yixuan Wang">
+  <div class="flex max-w-65ch flex-col sm:flex-row-reverse items-start gap-4">
+    <div>
+      <div class="relative flex-shrink w-[128px] h-[128px]">
+        <div class="rounded-full absolute w-full h-full bg-accent-800 @dark:bg-accent-200 pointer-events-none mix-blend-overlay"></div>
+        <img id="avatar" class="rounded-full" src="me.png" alt="Yixuan Wang's photo">
+      </div>
+    </div>
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col items-start sm:(justify-self-end items-end)">
+        <h1 class="font-bold text-3xl">
+          <span class="text-accent-800 @dark:text-accent-200">Yixuan <span class="font-normal lt-sm:text-xl">“Tom”</span></span>
+          Wang
+        </h1>
+        <span>王<span class="text-accent-800 @dark:text-accent-200">奕轩</span></span>
+      </div>
+      <div class="sm:self-end flex flex-row w-fit gap-2 text-2xl">
+        {links.map(({ icon, url }) => <a
+          class="text-accent-600 @dark:text-accent-400 @hover:text-accent-500 cursor-pointer"
+          href={url}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div class={icon}></div>
+        </a>)}
+      </div>
+      <div class="grid-col-[1] flex flex-col">
+        <p class="font-italic font-serif">Two roads diverged in a wood, and I—<br>
+          I took the one less traveled by,<br>
+          And that has made all the difference.<br>
+        </p>
+        <p class="text-sm self-end">by Robert Frost, <span class="font-italic">The Road Not Taken</span></p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+:root {
+  @apply use-accent-ocean;
+}
+</style>

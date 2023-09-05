@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+
+const title = "sin 的学习记录";
+---
+
+<Layout {title}>
+  <div class="flex max-w-65ch flex-col items-end gap-4">
+    <h1 class="text-4xl font-bold">{title}</h1>
+    <hr class="border-1 self-stretch border-accent-500">
+    <p class="flex flex-col items-end text-sm">
+      <a href="https://beian.miit.gov.cn">京 ICP 备 2020034022 号 - 1</a>
+      <a href="https://beian.miit.gov.cn">https://beian.miit.gov.cn</a>
+    </p>
+  </div>
+</Layout>
+
+<style>
+:root {
+  @apply use-accent-neutral;
+}
+</style>
