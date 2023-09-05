@@ -10,11 +10,13 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description">
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <slot name="head">
+      <meta name="description" content="Yixuan Wang's homepage.">
+    </slot>
   </head>
   <body class="h-screen w-screen px-6 py-4 flex flex-col justify-stretch items-center bg-accent-100 @dark:bg-accent-900 text-gray-900 @dark:text-stone-200">
     <header>
