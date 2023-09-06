@@ -68,7 +68,7 @@ export default defineConfig({
     [
       /use-accent-(.+)/,
       ([, accent], { theme }) => {
-        const colorVars = [
+        const colorVars: [string, string][] = [
           "50",
           "100",
           "200",
@@ -82,13 +82,12 @@ export default defineConfig({
         ]
           .map(
             shade =>
-              `--accent-${shade}: ${
+              [`--accent-${shade}`, `${
                 (theme.colors as any)?.[accent]?.[shade]
                 ?? `var(--accent-${shade})`
-              }`,
-          )
-          .join(";");
-        return colorVars;
+              }`],
+          );
+        return Object.fromEntries(colorVars);
       },
     ],
   ],
