@@ -49,7 +49,7 @@ export default defineConfig({
         900: "oklch(35.84% 0.06 301.89)",
         950: "oklch(29.34% 0.05 303.00)",
       },
-      merigold: {
+      lightning: {
         50: "oklch(98.88% 0.02 98.63)",
         100: "oklch(96.58% 0.06 98.18)",
         200: "oklch(93.50% 0.12 98.61)",
@@ -63,6 +63,9 @@ export default defineConfig({
         950: "oklch(28.46% 0.07 49.51)",
       },
     },
+  },
+  shortcuts: {
+    "text-plain": " text-gray-900 @dark:text-stone-200"
   },
   rules: [
     [
