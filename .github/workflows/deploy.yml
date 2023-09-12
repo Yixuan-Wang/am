@@ -20,6 +20,8 @@ concurrency:
 env:
   BUILD_PATH: "." # default value when not using subfolders
   # BUILD_PATH: subfolder
+  BUILD_SITE_URL: "https://blog.yixuan-wang.site"
+  BUILD_SITE_BASE: "/"
 
 jobs:
   build:
@@ -60,8 +62,8 @@ jobs:
       - name: Build with Astro
         run: |
           pnpm run build \
-            --site "${{ secrets.BUILD_SITE_URL }}" \
-            --base "${{ secrets.BUILD_SITE_BASE }}"
+            --site "${{ env.BUILD_SITE_URL }}" \
+            --base "${{ env.BUILD_SITE_BASE }}"
         working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
@@ -88,5 +90,5 @@ jobs:
           path: dist/.
           remote_path: ${{ secrets.DEPLOY_TARGET }}
           remote_host: ${{ secrets.DEPLOY_HOST }}
-          remote_user: ${{ secrets.DEPLOY_USER_NAME }}
+          remote_user: github
           remote_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
