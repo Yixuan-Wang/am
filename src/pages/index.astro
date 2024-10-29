@@ -29,13 +29,12 @@ const links = [
   <div class="flex max-w-65ch flex-col sm:flex-row-reverse items-start gap-4">
     <div>
       <div class="relative flex-shrink w-[128px] h-[128px]">
-        <div class="rounded-full absolute w-full h-full bg-accent-800 @dark:bg-accent-200 pointer-events-none mix-blend-overlay"></div>
-        <img id="avatar" class="rounded-full" src="me.png" alt="Yixuan Wang's photo">
+        <img id="avatar" class="rounded-full" src="me.webp" alt="Yixuan Wang's photo">
       </div>
     </div>
     <div class="flex flex-col gap-3">
       <div class="flex flex-col items-start sm:(justify-self-end items-end)">
-        <h1 class="font-bold text-3xl">
+        <h1 class="font-bold text-3xl leading-none pb-1">
           <span class="text-accent-800 @dark:text-accent-200">Yixuan <span class="font-normal lt-sm:text-xl">“Tom”</span></span>
           Wang
         </h1>
@@ -51,13 +50,9 @@ const links = [
           <div class={icon}></div>
         </a>)}
       </div>
-      <div class="grid-col-[1] flex flex-col">
-        <p class="font-italic font-serif">Two roads diverged in a wood, and I—<br>
-          I took the one less traveled by,<br>
-          And that has made all the difference.<br>
-        </p>
-        <p class="text-sm self-end">by Robert Frost, <span class="font-italic">The Road Not Taken</span></p>
-      </div>
+      <p class="grid-col-[1] flex flex-col font-serif sm:text-end">
+        Yixuan Wang is currently a student.
+      </p>
     </div>
   </div>
 	<Fragment slot="footer">
