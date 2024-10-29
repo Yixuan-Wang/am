@@ -20,12 +20,12 @@ concurrency:
 env:
   BUILD_PATH: "." # default value when not using subfolders
   # BUILD_PATH: subfolder
-  BUILD_SITE_URL: "https://blog.yixuan-wang.site"
+  BUILD_SITE_URL: "https://am.yixuan-wang.site"
   BUILD_SITE_BASE: "/"
 
 jobs:
-  build:
-    name: Build
+  build-and-deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -66,29 +66,9 @@ jobs:
             --base "${{ env.BUILD_SITE_BASE }}"
         working-directory: ${{ env.BUILD_PATH }}
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: am-build
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - name: Donwload Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: am-build
-          path: ./dist
-
-      - name: Deploy Server
-        uses: burnett01/rsync-deployments@5.2.1
-        with:
-          switches: -avzr --delete
-          path: dist/.
-          remote_path: ${{ secrets.DEPLOY_TARGET }}
-          remote_host: ${{ secrets.DEPLOY_HOST }}
-          remote_user: github
-          remote_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: am.yixuan-wang.site
