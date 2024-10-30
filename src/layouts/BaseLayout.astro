@@ -18,24 +18,22 @@ const { title } = Astro.props;
       <meta name="description" content="Yixuan Wang's homepage.">
     </slot>
   </head>
-  <body class="h-[100svh] w-[100svw] px-6 py-4 flex flex-col justify-stretch items-center">
-    <header>
-      <slot name="header">
-      </slot>
-    </header>
-    <div class="flex-1"></div>
-    <main class="contents">
-      <slot />
-    </main>
-    <div class="flex-1"></div>
-    <footer>
-      <slot name="footer" />
-    </footer>
+  <body class="h-[100svh] w-[100svw] overflow-x-hidden py-12 px-4 lg:px-12 flex flex-col justify-stretch items-center">
+    <slot />
   </body>
 </html>
 
 <style is:global>
 html {
   @apply bg-accent-100 @dark:bg-accent-900 text-plain;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+p a {
+  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-b-1 border-dotted border-accent-600 @dark:border-accent-400 @hover:border-accent-500 @hover:border-solid;
 }
 </style>

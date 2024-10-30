@@ -1,75 +1,73 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import Config from "data/config.toml";
 
-const links = [
-  {
-    name: "GitHub",
-    icon: "i-mdi-github",
-    url: "https://github.com/Yixuan-Wang",
-  },
-  {
-    name: "Twitter",
-    icon: "i-mdi-twitter",
-    url: "https://twitter.com/tom_yixuan_wang",
-  },
-  {
-    name: "Bluesky",
-    icon: "i-custom-bluesky",
-    url: "https://bsky.app/profile/tomyxw.bsky.social",
-  },
-  {
-    name: "Mastodon",
-    icon: "i-mdi-mastodon",
-    url: "https://sigmoid.social/@tom_yixuan_wang",
-  },
-  {
-    name: "LinkedIn",
-    icon: "i-mdi-linkedin",
-    url: "https://www.linkedin.com/in/yixuan-wang-196b60253/",
-  },
-];
+import { format } from "date-fns";
+
+const { description, links, name } = Config;
+
+const displayName = `${name.first} ${name.last}`;
+const now = format(new Date(), "yyyy-MM-dd");
 ---
 
-<Layout title="Yixuan Wang">
-  <div class="flex max-w-65ch flex-col sm:flex-row-reverse items-start gap-4">
-    <div>
-      <div class="relative flex-shrink w-[128px] h-[128px]">
-        <img id="avatar" class="rounded-full" src="me.webp" alt="Yixuan Wang's photo">
+<Layout title={displayName}>
+  <div id="index" class="flex flex-col gap-4 lg:(flex-row gap-8) items-start">
+    <aside class="flex flex-col items-start px-2 lg:(flex-row-reverse items-center px-0 sticky top-12) gap-4">
+      <div class="flex-shrink w-[4lh] h-[4lh]">
+        <img id="avatar" class="rounded-full" src="avatar.webp" alt={`${displayName}'s photo`}>
       </div>
-    </div>
-    <div class="flex flex-col gap-3">
-      <div class="flex flex-col items-start sm:(justify-self-end items-end)">
-        <h1 class="font-bold text-3xl leading-none pb-1">
-          <span class="text-accent-800 @dark:text-accent-200">Yixuan <span class="font-normal lt-sm:text-xl">“Tom”</span></span>
-          Wang
-        </h1>
-        <span>王<span class="text-accent-800 @dark:text-accent-200">奕轩</span></span>
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col items-start lg:(justify-self-end items-end)">
+          <h1 class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2">
+            <span class="text-accent-800 @dark:text-accent-200">{name.first}</span>
+            {name.middle ? <span class="font-normal lt-lg:text-xl">{name.middle}</span> : null}
+            <span>{name.last}</span>
+          </h1>
+          {name.given ? <span>{name.family}<span class="text-accent-800 @dark:text-accent-200">{name.given}</span></span> : null}
+        </div>
+        <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
+          {links.filter(({ important }) => important).map(({ icon, url }) => (<a
+            class="text-accent-600 @dark:text-accent-400 @hover:text-accent-500 cursor-pointer"
+            href={url}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div class={icon}></div>
+          </a>))}
+        </div>
       </div>
-      <div class="sm:self-end flex flex-row w-fit gap-2 text-2xl">
-        {links.map(({ icon, url }) => <a
-          class="text-accent-600 @dark:text-accent-400 @hover:text-accent-500 cursor-pointer"
-          href={url}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <div class={icon}></div>
-        </a>)}
+    </aside>
+
+    <main class="max-w-65ch h-full flex flex-col gap-4">
+      <section class="font-serif bg-white bg-op-50 @dark:(bg-black bg-op-25) p-4 rounded-4">
+        <Fragment set:html={ description } />
+      </section>
+      <section class="hidden bg-black bg-op-25 p-4 rounded-4 h-[200vh]">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima doloremque illo accusantium quibusdam, similique dignissimos? Sapiente, omnis! Repellat praesentium alias vel voluptatem dolore nemo tenetur dolor, fugit sequi suscipit sit?</p>
+      </section>
+      <div class="px-2 flex-1 items-start">
+        <span class="inline-flex flex-row gap-2 place-items-center">
+          <div class="i-mdi-sign-caution text-xl"></div>
+          <span class="font-mono">under construction</span>
+        </span>
       </div>
-      <p class="grid-col-[1] flex flex-col font-serif sm:text-end">
-        Yixuan Wang is currently a student.
+      <p class="px-2">
+        {displayName}
+        &middot;
+        {now}
+        &middot;
+        <a href="https://github.com/Yixuan-Wang/am" rel="noopener" target="_blank">Am</a>
       </p>
-    </div>
+    </main>
   </div>
-	<Fragment slot="footer">
-		<div class="flex flex-col place-items-center">
-			<div class="i-mdi-sign-caution text-xl"></div>
-			<span class="font-mono underline underline-dotted">under construction</span>
-		</div>
-	</Fragment>
 </Layout>
 
 <style>
 :root {
   @apply use-accent-ocean;
+}
+
+#index {
+  min-height: calc(100svh - 5rem);
 }
 </style>

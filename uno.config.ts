@@ -1,6 +1,15 @@
 import { defineConfig, presetIcons, presetUno, presetWebFonts, transformerDirectives, transformerVariantGroup } from "unocss";
 
 export default defineConfig({
+  content: {
+    pipeline: {
+      include: [
+        /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
+        'src/**/*.{js,ts}',
+        'data/**/*.toml',
+      ],
+    },
+  },
   presets: [presetUno(), presetIcons({
     collections: {
       custom: {
