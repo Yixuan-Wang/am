@@ -1,6 +1,6 @@
 news:
   hello:
     date: 2024-10-31
-    icon: i-mdi-creation
+    icon: i-mdi:creation
     content: 
       Hello, world!
