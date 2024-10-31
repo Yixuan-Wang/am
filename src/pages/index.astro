@@ -1,19 +1,31 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
-import Config from "data/config.toml";
-
+import Config from "data/config.yaml";
 import { format } from "date-fns";
+import { parseMarkdown } from "../logic/markdown";
 
-const { description, links, name } = Config;
+import TheNav from "../components/TheNav.astro";
 
+import NewsCard from "../components/NewsCard.astro";
+import BlogCard from "@/data/BlogCard.astro";
+import SocialCard from "../components/SocialCard.astro";
+
+const { bio: rawBio, links, name } = Config;
+
+
+const bio = parseMarkdown(rawBio);
 const displayName = `${name.first} ${name.last}`;
+
 const now = format(new Date(), "yyyy-MM-dd");
 ---
 
 <Layout title={displayName}>
-  <div id="index" class="flex flex-col gap-4 lg:(flex-row gap-8) items-start">
-    <aside class="flex flex-col items-start px-2 lg:(flex-row-reverse items-center px-0 sticky top-12) gap-4">
-      <div class="flex-shrink w-[4lh] h-[4lh]">
+  <div id="index" class="min-h-full lt-lg:(flex flex-col gap-4) lg:(grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-8) items-start">
+    <header 
+      id="portfolio"
+      class="flex flex-col items-start px-2 lg:(flex-row-reverse items-end px-0 sticky top-12) gap-4"
+    >
+      <div class="self-start flex-shrink w-[4lh] h-[4lh]">
         <img id="avatar" class="rounded-full" src="avatar.webp" alt={`${displayName}'s photo`}>
       </div>
       <div class="flex flex-col gap-3">
@@ -27,7 +39,7 @@ const now = format(new Date(), "yyyy-MM-dd");
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
           {links.filter(({ important }) => important).map(({ icon, url }) => (<a
-            class="text-accent-600 @dark:text-accent-400 @hover:text-accent-500 cursor-pointer"
+            class="btn-icon"
             href={url}
             rel="noopener noreferrer"
             target="_blank"
@@ -36,21 +48,125 @@ const now = format(new Date(), "yyyy-MM-dd");
           </a>))}
         </div>
       </div>
-    </aside>
+    </header>
+    <div 
+      id="nav-container"
+      class="row-[2/3] lg:col-[1/2] self-start w-fit z-9 lg:justify-self-end sticky top-6">
+      <TheNav />
+      <script is:inline>
+        /* Sticky Nav */
+        function stickyNav() {
+          const portfolio = document.getElementById("portfolio");
+          const navContainer = document.getElementById("nav-container");
+          if (!window.matchMedia("(min-width: 1024px)").matches) {
+            navContainer.style.top = "1.5rem";
+            return;
+          }
+          
+          const firstRowHeight = portfolio.getBoundingClientRect().height;
+          navContainer.style.top = `calc(${firstRowHeight}px + 5rem)`;
+        }
+        window.addEventListener("scroll", stickyNav);
+        window.addEventListener("resize", stickyNav);
+      </script>
+    </div>
+    <main class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4">
+      <section
+        id="bio"
+        class="font-serif card"
+      >
+        <Fragment set:html={ bio } />
+      </section>
 
-    <main class="max-w-65ch h-full flex flex-col gap-4">
-      <section class="font-serif bg-white bg-op-50 @dark:(bg-black bg-op-25) p-4 rounded-4">
-        <Fragment set:html={ description } />
-      </section>
-      <section class="hidden bg-black bg-op-25 p-4 rounded-4 h-[200vh]">
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima doloremque illo accusantium quibusdam, similique dignissimos? Sapiente, omnis! Repellat praesentium alias vel voluptatem dolore nemo tenetur dolor, fugit sequi suscipit sit?</p>
-      </section>
-      <div class="px-2 flex-1 items-start">
-        <span class="inline-flex flex-row gap-2 place-items-center">
-          <div class="i-mdi-sign-caution text-xl"></div>
-          <span class="font-mono">under construction</span>
-        </span>
-      </div>
+      <NewsCard /> 
+
+      <BlogCard />
+
+      <SocialCard />
+
+      <script is:inline>
+        /* Scoll Spy */
+        const nav = document.getElementById("nav");
+        const sections = document.querySelectorAll("[data-nav]")
+        const navItems = nav.querySelectorAll("[data-nav-item]");
+        const navContainer = document.getElementById("nav-container");
+        const scrollContainer = document.documentElement;
+
+        let ratio;
+
+        function focusNavItem(navItem) {
+          navItems.forEach((item) => item.removeAttribute("data-active"));
+          navItem.setAttribute("data-active", "true");
+        }
+
+        function scrollToSection(navItem) {
+          try {
+            const section = document.getElementById(navItem.getAttribute("data-nav-item"));
+            const navItemIndex = Array.from(navItems).indexOf(navItem);
+
+            const r = ratio[navItemIndex];
+
+            const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            const scrollTo = r * maxScroll;
+
+            if (scrollTo === window.scrollY) {
+              focusNavItem(navItem);
+              return;
+            }
+
+            document.documentElement.scrollTo({ top: scrollTo, behavior: "smooth" });
+          } catch (error) {
+            focusNavItem(navItem);
+            return
+          }
+        }
+
+        function calculateRatio() {
+          const sectionPosition = Array.from(sections).map((section) => section.getBoundingClientRect().top + window.scrollY);
+          sectionPosition.push(scrollContainer.scrollHeight);
+          const gaps = [
+            sectionPosition[0],
+            ...sectionPosition.map((position, index, array) => {
+              if (index === array.length - 1) return null;
+              return array[index + 1] - position;
+            }).slice(0, -1),
+          ]
+          const gapSum = gaps.reduce((acc, gap) => acc + gap, 0);
+          const gapRatio = gaps.map((gap) => gap / gapSum);
+          
+          const gapRatioAccumulated = gapRatio.reduce((acc, ratio, index) => {
+            const previous = index === 0 ? 0 : acc[index - 1];
+            return [...acc, previous + ratio];
+          }, []);
+
+          return gapRatioAccumulated;
+        }
+
+        navItems.forEach((navItem) => {
+          navItem.addEventListener("click", () => {
+            scrollToSection(navItem);
+          });
+        });
+
+        function updateRatioAttr() {
+          ratio = calculateRatio();
+        }
+        updateRatioAttr();
+        window.addEventListener("resize", updateRatioAttr);
+
+        window.addEventListener("scroll", () => {
+          const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+
+          const currentScroll = window.scrollY;
+          const currentRatio = currentScroll / maxScroll;
+
+          let currentSectionIndex = ratio.findIndex((ratio) => ratio - currentRatio > 1e-6);
+          if (currentSectionIndex === -1 || currentSectionIndex > sections.length - 1) currentSectionIndex = sections.length - 1;
+
+          focusNavItem(navItems[currentSectionIndex]);
+        });
+      </script>
+
       <p class="px-2">
         {displayName}
         &middot;
@@ -65,9 +181,5 @@ const now = format(new Date(), "yyyy-MM-dd");
 <style>
 :root {
   @apply use-accent-ocean;
-}
-
-#index {
-  min-height: calc(100svh - 5rem);
 }
 </style>

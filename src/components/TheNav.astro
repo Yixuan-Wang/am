@@ -1,0 +1,28 @@
+---
+import Config from "data/config.yaml";
+
+const { nav } = Config;
+---
+
+<nav 
+  id="nav"
+>
+  {nav.map(({ id, name, icon }, idx) => (<a
+    class="btn-icon h-8 w-8 rounded-full inline-flex items-center justify-center"
+    title={name}
+    data-nav-item={id}
+    data-active={idx === 0}
+  >
+    <div class={icon}></div>
+  </a>))}
+</nav>
+
+<style>
+#nav {
+  @apply sticky top-12 flex outline-accent-900 @dark:outline-accent-500 lt-lg:(flex-row p-2 outline-2 outline-solid) lg:(flex-col p-1 outline-none) items-center rounded-full text-xl bg-box;
+}
+
+[data-active] {
+  @apply @dark:(bg-accent-500 text-accent-900) bg-accent-900 text-accent-100 transition-lively;
+}
+</style>

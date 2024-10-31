@@ -1,4 +1,4 @@
-declare module "data/config.toml" {
+declare module "data/config.yaml" {
   const value: {
     name: {
       first: string;
@@ -7,7 +7,12 @@ declare module "data/config.toml" {
       family?: string;
       given?: string;
     }
-    description: string;
+    bio: string;
+    nav: Array<{
+      id: string;
+      name: string;
+      icon: string;
+    }>;
     links: Array<{
       name: string;
       icon: string;
@@ -15,5 +20,16 @@ declare module "data/config.toml" {
       important?: boolean;
     }>;
   }
+  export default value;
+}
+
+declare module "data/news.yaml" {
+  const value: {
+    news: Record<string, {
+      date: string;
+      content: string;
+      icon?: string;
+    }>
+  };
   export default value;
 }

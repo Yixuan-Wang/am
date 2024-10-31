@@ -1,0 +1,35 @@
+---
+import NewsEntry from "../components/NewsEntry.astro";
+import News from "data/news.yaml";
+import { aoeDate } from "../logic/time";
+import { compareDesc } from 'date-fns';
+
+const { news } = News;
+
+const sortedNews = Object.entries(news).sort(([, a], [, b]) => compareDesc(aoeDate(a.date), aoeDate(b.date)));
+---
+
+<section
+  id="news"
+  data-nav="news"
+  class="card flex flex-col gap-2"
+>
+  <h2 class="text-xl font-bold inline-flex gap-1 place-items-center">
+    <div class="i-mdi-bulletin-board"></div>
+    <span>News</span>
+  </h2>
+  <div class="card-news">
+    {sortedNews.map(([key, { date, content, icon }]) => (
+      <NewsEntry key={key} date={date} content={content} icon={icon} />
+    ))}
+  </div>
+</section>
+
+<style>
+.card-news {
+  display: inline-grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: start;
+  gap: 0.25rem 0.5rem;
+}
+</style>

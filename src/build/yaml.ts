@@ -1,14 +1,14 @@
-/// Rollup plugin to load toml files
+/// Rollup plugin to load yaml files
 import type { Plugin } from "vite";
-import { parse } from "@std/toml";
+import { parse } from "@std/yaml";
 import { dataToEsm } from '@rollup/pluginutils';
 
-export default function PluginToml(): Plugin {
+export default function PluginYaml(): Plugin {
   return {
-    name: "toml",
+    name: "yaml",
 
     transform(code, id) {
-      if (!id.endsWith(".toml")) return null;
+      if (!id.endsWith(".yaml")) return null;
 
       try {
         const parsed = parse(code);
@@ -22,9 +22,8 @@ export default function PluginToml(): Plugin {
         };
       }
       catch (err) {
-        const message = 'Could not parse JSON file';
+        const message = 'Could not parse YAML file';
         this.error({ message, id, cause: err });
-        return null;
       }
     },
   };

@@ -6,7 +6,7 @@ const __dirname = dirname(__filename);
 
 import UnoCSS from "unocss/astro";
 import Inspect from "vite-plugin-inspect";
-import Toml from "./src/build/toml";
+import Yaml from "./src/build/yaml";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
   vite: {
     plugins: [
       Inspect(),
-      Toml(),
+      Yaml(),
     ],
     resolve: {
       alias: {

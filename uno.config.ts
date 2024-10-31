@@ -6,7 +6,7 @@ export default defineConfig({
       include: [
         /\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html)($|\?)/,
         'src/**/*.{js,ts}',
-        'data/**/*.toml',
+        'data/**/*.yaml',
       ],
     },
   },
@@ -19,9 +19,15 @@ export default defineConfig({
     }
   }), presetWebFonts({
     fonts: {
-      sans: ["Inter"],
-      serif: ["Roboto Slab"],
-      mono: ["JetBrains Mono"],
+      sans: [{
+        name: 'Manrope',
+        weights: ['400', '700'],
+        italic: true,
+      }],
+      serif: [{
+        name: 'Roboto Slab',
+        weights: ['400', '700'],
+      }],
     },
   })],
   transformers: [transformerDirectives(), transformerVariantGroup()],
@@ -38,6 +44,7 @@ export default defineConfig({
         700: "var(--accent-700)",
         800: "var(--accent-800)",
         900: "var(--accent-900)",
+        950: "var(--accent-950)",
       },
       ocean: {
         50: "oklch(97.35% 0.02 225.19)",
@@ -81,7 +88,18 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    "text-plain": " text-gray-900 @dark:text-stone-200"
+    "text-plain": " text-gray-900 @dark:text-stone-200",
+    "text-emph": "text-accent-600 @dark:text-accent-400",
+    "transition-lively": [
+      "transition-all",
+      "duration-100",
+      "ease-in",
+      "hover:duration-200",
+      "hover:ease-out",
+    ],
+    "bg-box": "bg-accent-50 @dark:bg-accent-950",
+    "btn-icon": "text-emph @hover:text-accent-500 cursor-pointer",
+    "card": "bg-box p-4 rounded-4",
   },
   rules: [
     [
@@ -98,6 +116,7 @@ export default defineConfig({
           "700",
           "800",
           "900",
+          "950",
         ]
           .map(
             shade =>

@@ -1,0 +1,28 @@
+---
+import { formatAoe } from "../logic/time";
+import { parseMarkdown } from "../logic/markdown";
+
+const { date, icon, content: rawContent } = Astro.props;
+
+let content;
+try {
+  content = parseMarkdown(rawContent)
+} catch (error) {
+  console.error('Error parsing markdown:', error);
+  content = rawContent;
+}
+
+let formattedDate;
+try {
+  formattedDate = formatAoe(date, 'MMM dd');
+} catch (error) {
+  console.error('Error formatting date:', error);
+  formattedDate = "???";
+}
+---
+
+<article class="contents">
+  <div class:list={[icon ?? "i-mdi-hand-pointing-right", "h-1lh", "text-emph", "justify-self-enter"]}></div>
+  <time class="font-bold text-emph">{ formattedDate }</time>
+  <div class="font-serif" set:html={ content }></div>
+</article>

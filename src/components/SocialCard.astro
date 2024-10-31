@@ -1,0 +1,30 @@
+---
+import Config from "data/config.yaml";
+
+const { links } = Config;
+---
+
+<section
+id="social"
+data-nav="social"
+class="card flex flex-col gap-2"
+>
+<h2 class="text-xl font-bold inline-flex gap-1 place-items-center">
+  <div class="i-mdi-circle-double"></div>
+  <span>Social</span>
+</h2>
+<p class="font-serif">
+  You can also find me via:
+</p>
+<div class="flex flex-row w-fit gap-2 text-xl">
+  {links.map(({ icon, url, name }) => (<a
+    class="btn-icon"
+    href={url}
+    title={name}
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <div class={icon}></div>
+  </a>))}
+</div> 
+</section>

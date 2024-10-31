@@ -1,0 +1,47 @@
+bio: |
+  Greetings! I am currently a MS student at [UChicago CS](https://www.cs.uchicago.edu/).
+  My research interests are in **NLP** and **Computational Linguistics**.
+  I received my Bachelor's degree in [computational and applied linguistics](https://ccl.pku.edu.cn/all/) at [Peking University](https://www.pku.edu.cn/).
+
+name:
+  first: Yixuan
+  last: Wang
+  middle: “Tom”
+  family: 王
+  given: 奕轩
+
+nav:
+  - name: News
+    id: news
+    icon: i-mdi-bulletin-board
+  # - name: Publication
+  #   id: publication
+  #   icon: i-mdi-document
+  # - name: Project
+  #   id: project
+  #   icon: i-mdi-archive
+  - name: Blog
+    id: blog
+    icon: i-mdi-circle
+  - name: Social
+    id: social
+    icon: i-mdi-circle-double
+
+links:
+  - name: GitHub
+    icon: i-mdi-github
+    url: https://github.com/Yixuan-Wang
+    important: true
+  - name: Twitter
+    icon: i-mdi-twitter
+    url: https://twitter.com/tom_yixuan_wang
+    important: true
+  - name: Bluesky
+    icon: i-custom-bluesky
+    url: https://bsky.app/profile/tomyxw.bsky.social
+  - name: Mastodon
+    icon: i-mdi-mastodon
+    url: https://sigmoid.social/@tom_yixuan_wang
+  - name: LinkedIn
+    icon: i-mdi-linkedin
+    url: https://www.linkedin.com/in/yixuan-wang-196b60253/
