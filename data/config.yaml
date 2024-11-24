@@ -35,10 +35,10 @@ links:
   - name: Twitter
     icon: i-mdi:twitter
     url: https://twitter.com/tom_yixuan_wang
-    important: true
   - name: Bluesky
     icon: i-custom:bluesky
     url: https://bsky.app/profile/tomyxw.bsky.social
+    important: true
   - name: Mastodon
     icon: i-mdi:mastodon
     url: https://sigmoid.social/@tom_yixuan_wang
