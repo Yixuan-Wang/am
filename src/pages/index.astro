@@ -157,7 +157,7 @@ const now = format(new Date(), "yyyy-MM-dd");
         updateRatioAttr();
         window.addEventListener("resize", updateRatioAttr);
 
-        window.addEventListener("scroll", () => {
+        function focusCurrentItem() {
           const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
 
           const currentScroll = window.scrollY;
@@ -167,7 +167,22 @@ const now = format(new Date(), "yyyy-MM-dd");
           if (currentSectionIndex === -1 || currentSectionIndex > sections.length - 1) currentSectionIndex = sections.length - 1;
 
           focusNavItem(navItems[currentSectionIndex]);
-        });
+        }
+
+        window.addEventListener("scroll", focusCurrentItem);
+
+        function updateNavVisibility() {
+          const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+          if (maxScroll <= 0) {
+            navContainer.style.display = "none";
+          } else {
+            navContainer.style.display = "";
+            focusCurrentItem();
+          }
+        }
+
+        updateNavVisibility();
+        window.addEventListener("resize", updateNavVisibility);
       </script>
 
       <p class="px-2">
