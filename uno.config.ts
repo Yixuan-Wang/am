@@ -24,6 +24,10 @@ export default defineConfig({
         weights: ['400', '700'],
         italic: true,
       }],
+      mono: [{
+        name: 'Iosevka',
+        weights: ['400'],
+      }],
       serif: [{
         name: 'Roboto Slab',
         weights: ['400', '700'],

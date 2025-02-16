@@ -35,7 +35,10 @@ const now = format(new Date(), "yyyy-MM-dd");
             {name.middle ? <span class="font-normal lt-lg:text-xl">{name.middle}</span> : null}
             <span>{name.last}</span>
           </h1>
-          {name.given ? <span>{name.family}<span class="text-accent-800 @dark:text-accent-200">{name.given}</span></span> : null}
+          <span>
+            {name.given ? <span>{name.family}<span class="text-accent-800 @dark:text-accent-200">{name.given}</span></span> : null}
+            <span class="font-mono ps-1">{name.ipa}</span>
+          </span>
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
           {links.filter(({ important }) => important).map(({ icon, url }) => (<a

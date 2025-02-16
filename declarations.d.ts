@@ -6,6 +6,7 @@ declare module "data/config.yaml" {
       middle?: string;
       family?: string;
       given?: string;
+      ipa?: string;
     }
     bio: string;
     nav: Array<{
