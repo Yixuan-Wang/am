@@ -1,12 +1,23 @@
 ---
 import NewsEntry from "../components/NewsEntry.astro";
-import News from "data/news.yaml";
+import { getCollection } from 'astro:content';
 import { aoeDate } from "../logic/time";
-import { compareDesc } from 'date-fns';
+import { compareDesc, subMonths } from 'date-fns';
+import type { CollectionEntry } from "astro:content";
 
-const { news } = News;
+const cutoffDate = subMonths(new Date(), 18);
+const rawNews = await getCollection("news", (entry) => compareDesc(cutoffDate, entry.data.date) >= 0);
 
-const sortedNews = Object.entries(news).sort(([, a], [, b]) => compareDesc(aoeDate(a.date), aoeDate(b.date)));
+const groupedNews = Object.entries(rawNews)
+  .sort(([, a], [, b]) => compareDesc(a.data.date, b.data.date))
+  .reduce((groups, [key, entry]) => {
+    const year = entry.data.date.getFullYear();
+    if (!groups[year]) {
+      groups[year] = [];
+    }
+    groups[year].push([key, entry]);
+    return groups;
+  }, {} as Record<number, [string, CollectionEntry<"news">][]>);
 ---
 
 <section
@@ -19,9 +30,19 @@ const sortedNews = Object.entries(news).sort(([, a], [, b]) => compareDesc(aoeDa
     <span>News</span>
   </h2>
   <div class="card-news">
-    {sortedNews.map(([key, { date, content, icon }]) => (
-      <NewsEntry key={key} date={date} content={content} icon={icon} />
-    ))}
+    {
+      Object
+        .entries(groupedNews)
+        .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+        .map(([year, news]) => (
+        <section class="contents">
+          <h3>{year}</h3>
+          {news.map(([key, { body, data: { date, icon } }]) => (
+            <NewsEntry key={key} date={date} content={body} icon={icon} />
+          ))}
+        </section>
+      ))
+    }
   </div>
 </section>
 
@@ -31,5 +52,15 @@ const sortedNews = Object.entries(news).sort(([, a], [, b]) => compareDesc(aoeDa
   grid-template-columns: auto auto 1fr;
   align-items: start;
   gap: 0.25rem 0.5rem;
+
+  & h3 {
+    grid-column: span 3;
+    font-size: 1.125rem;
+    font-weight: bold;
+
+    &:not(:first-child) {
+      margin: 0.5rem 0;
+    }
+  }
 }
 </style>

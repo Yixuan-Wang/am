@@ -9,6 +9,9 @@ export default defineConfig({
         'data/**/*',
       ],
     },
+    filesystem: [
+        'data/**/*',
+    ],
   },
   presets: [presetUno(), presetIcons({
     collections: {
