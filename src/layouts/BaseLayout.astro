@@ -1,12 +1,12 @@
 ---
 interface Props {
-  title: string
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,32 +15,59 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <slot name="head">
-      <meta name="description" content="Yixuan Wang's homepage.">
+      <meta name="description" content="Yixuan Wang's homepage." />
     </slot>
   </head>
-  <body class="w-[100svw] min-h-full overflow-x-hidden py-12 px-4 lg:px-12 flex flex-col justify-stretch items-center">
-    <script data-host="https://app.microanalytics.io" data-dnt="false" src="https://app.microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
+  <body
+    class="w-[100svw] min-h-full overflow-x-hidden py-12 px-4 lg:px-12 flex flex-col justify-stretch items-center"
+  >
+    <script
+      data-host="https://app.microanalytics.io"
+      data-dnt="false"
+      src="https://app.microanalytics.io/js/script.js"
+      id="ZwSg9rf6GA"
+      async
+      defer></script>
     <slot />
   </body>
 </html>
 
 <style is:global>
-html {
-  @apply bg-accent-100 @dark:bg-accent-900 text-plain h-full font-title;
-}
+  @font-face {
+    font-family: Iosevka;
+    src: url("https://typeof.net/Iosevka/_next/static/media/Iosevka-Regular.6a70fa81.woff2")
+      format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-display: swap;
+  }
 
-html {
-  scrollbar-width: thin;
-}
+  @font-face {
+    font-family: Iosevka;
+    src: url("https://typeof.net/Iosevka/_next/static/media/Iosevka-Bold.f8027c0e.woff2")
+      format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+    font-display: swap;
+  }
 
-p a {
-  @apply border-b-1 border-dotted @hover:border-solid transition-lively;
-}
+  html {
+    @apply bg-accent-100 @dark:bg-accent-900 text-plain h-full font-sans;
+  }
 
-p.colorful a,
-*.colorful p a,
-p a.colorful
-{
-  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-accent-600 @dark:border-accent-400 @hover:border-accent-500;
-}
+  html {
+    scrollbar-width: thin;
+  }
+
+  p a {
+    @apply border-b-1 border-dotted @hover:border-solid transition-lively;
+  }
+
+  p.colorful a,
+  *.colorful p a,
+  p a.colorful {
+    @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-accent-600 @dark:border-accent-400 @hover:border-accent-500;
+  }
 </style>

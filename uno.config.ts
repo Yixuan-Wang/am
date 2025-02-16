@@ -24,15 +24,19 @@ export default defineConfig({
     }
   }), presetWebFonts({
     fonts: {
-      title: [{
+      sans: [{
         name: 'Manrope',
         weights: ['400', '700'],
         italic: true,
       }],
-      body: [{
-        name: 'Inter',
+      mono: [{
+        name: 'Iosevka',
         weights: ['400', '700'],
-        italic: true,
+        provider: 'none',
+      }],
+      serif: [{
+        name: 'Roboto Slab',
+        weights: ['400', '700'],
       }],
     },
   })],
