@@ -34,6 +34,13 @@ html {
 }
 
 p a {
-  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-b-1 border-dotted border-accent-600 @dark:border-accent-400 @hover:border-accent-500 @hover:border-solid transition-lively;
+  @apply border-b-1 border-dotted @hover:border-solid transition-lively;
+}
+
+p.colorful a,
+*.colorful p a,
+p a.colorful
+{
+  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-accent-600 @dark:border-accent-400 @hover:border-accent-500;
 }
 </style>
