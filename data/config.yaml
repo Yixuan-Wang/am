@@ -17,7 +17,7 @@ name:
 nav:
   - name: News
     id: news
-    icon: i-mdi:bulletin-board
+    icon: i-mdi:bullhorn
   # - name: Publication
   #   id: publication
   #   icon: i-mdi:document
@@ -49,3 +49,6 @@ links:
   - name: LinkedIn
     icon: i-mdi:linkedin
     url: https://www.linkedin.com/in/yixuan-wang-196b60253/
+  - name: Google Scholar
+    icon: i-custom:google-scholar
+    url: https://scholar.google.com/citations?user=2-qOuAQAAAAJ
