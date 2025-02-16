@@ -37,7 +37,7 @@ const now = format(new Date(), "yyyy-MM-dd");
           </h1>
           <span>
             {name.given ? <span>{name.family}<span class="text-accent-800 @dark:text-accent-200">{name.given}</span></span> : null}
-            <span class="font-mono ps-1">{name.ipa}</span>
+            <span class="font-body ps-1">{name.ipa}</span>
           </span>
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
@@ -76,7 +76,7 @@ const now = format(new Date(), "yyyy-MM-dd");
     <main class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4">
       <section
         id="bio"
-        class="font-serif card"
+        class="font-title card"
       >
         <Fragment set:html={ bio } />
       </section>
