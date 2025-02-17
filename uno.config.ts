@@ -98,7 +98,7 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    "text-plain": " text-gray-900 @dark:text-stone-200",
+    "text-plain": "text-gray-900 @dark:text-stone-200",
     "text-emph": "text-accent-600 @dark:text-accent-400",
     "transition-lively": [
       "transition-all",
