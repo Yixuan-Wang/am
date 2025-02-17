@@ -1,0 +1,72 @@
+---
+import type { Entry as BibEntry } from "@retorquere/bibtex-parser";
+import Config from "data/config.yaml"
+
+const { entry } = Astro.props as { entry: BibEntry };
+
+function isMe(author: { firstName?: string; lastName?: string }) {
+  return author.firstName === Config.name.first && author.lastName === Config.name.last;
+}
+
+---
+
+<article class="publication">
+  <div class="publication-title">{entry.fields.title}</div>
+  <div class="publication-author">
+    {entry.fields.author?.map((author) => (
+      <div class:list={[
+        isMe(author) ? "font-bold" : null,
+      ]}>{author.firstName} {author.lastName}</div>
+    ))}
+  </div>
+  <div class="publication-link">
+    {entry.type === "misc" ? (
+      <span>Preprint</span>
+    ) : null}
+    {entry.fields.archiveprefix ? (
+      <a
+        class="btn-icon"
+        href={`https://arxiv.org/abs/${entry.fields.eprint}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="arXiv"
+      >
+        <div class="i-custom:arxiv"></div>
+      </a>
+    ) : null}
+  </div>
+</article>
+
+<style>
+.publication {
+  @apply flex flex-col gap-0.5 font-serif;
+}
+
+.publication-title {
+  @apply lh-tight;
+}
+
+.publication > *:not(.publication-title) {
+  @apply text-sm;
+}
+
+.publication-author {
+  @apply flex gap-1 lh-tight text-sm;
+}
+
+.publication-author > *:not(:last-child)::after {
+  content: ",";
+}
+
+.publication-link {
+  @apply flex gap-1 items-center font-sans;
+}
+
+.publication-link span:first-child {
+  @apply pr-1;
+}
+
+.publication-link .btn-icon {
+  @apply text-lg;
+}
+</style>

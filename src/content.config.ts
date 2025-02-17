@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
+import { parse as parseBib, type Entry } from "@retorquere/bibtex-parser";
 
 const news = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./data/news" }),
@@ -9,4 +10,16 @@ const news = defineCollection({
   })
 });
 
-export const collections = { news };
+const publications = defineCollection<Entry>({
+  loader: file('./data/publications.bib', {
+    parser(pubs) {
+      const bib = parseBib(pubs);
+      return bib.entries.map(entry => ({
+        ...entry,
+        id: entry.key,
+      }));
+    }
+  }),
+});
+
+export const collections = { news, publications };

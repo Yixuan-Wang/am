@@ -18,9 +18,9 @@ nav:
   - name: News
     id: news
     icon: i-mdi:bullhorn
-  # - name: Publication
-  #   id: publication
-  #   icon: i-mdi:document
+  - name: Publication
+    id: publication
+    icon: i-mdi:document
   # - name: Project
   #   id: project
   #   icon: i-mdi:archive

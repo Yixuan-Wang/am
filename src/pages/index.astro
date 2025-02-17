@@ -9,6 +9,7 @@ import TheNav from "../components/TheNav.astro";
 import NewsCard from "../components/NewsCard.astro";
 import BlogCard from "@/data/BlogCard.astro";
 import SocialCard from "../components/SocialCard.astro";
+import PublicationsCard from "../components/PublicationsCard.astro";
 
 const { bio: rawBio, links, name } = Config;
 
@@ -81,7 +82,9 @@ const now = format(new Date(), "yyyy-MM-dd");
         <Fragment set:html={ bio } />
       </section>
 
-      <NewsCard /> 
+      <NewsCard />
+
+      <PublicationsCard />
 
       <BlogCard />
 
