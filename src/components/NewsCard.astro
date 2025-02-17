@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { aoeDate } from "../logic/time";
 import { compareDesc, subMonths } from 'date-fns';
 import type { CollectionEntry } from "astro:content";
+import CardTitle from "./CardTitle.astro";
 
 const cutoffDate = subMonths(new Date(), 18);
 const rawNews = await getCollection("news", (entry) => compareDesc(cutoffDate, entry.data.date) >= 0);
@@ -25,10 +26,7 @@ const groupedNews = Object.entries(rawNews)
   data-nav="news"
   class="card flex flex-col gap-2"
 >
-  <h2 class="text-xl font-bold inline-flex gap-1 place-items-center">
-    <div class="i-mdi:bullhorn"></div>
-    <span>News</span>
-  </h2>
+  <CardTitle icon="i-mdi:bullhorn" title="News" />
   <div class="card-news">
     {
       Object

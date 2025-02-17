@@ -1,12 +1,13 @@
+---
+import CardTitle from "@/src/components/CardTitle.astro";
+---
+
 <section
   id="blog"
   data-nav="blog"
   class="card flex flex-col gap-2"
 >
-  <h2 class="text-xl font-bold inline-flex gap-1 place-items-center">
-    <div class="i-mdi:circle"></div>
-    <span>Blog</span>
-  </h2>
+  <CardTitle icon="i-mdi:circle" title="Blog" /> 
   <p class="font-serif">
     For more writings, check out my blog, <a class="font-bold colorful" href="https://blog.yixuan-wang.site">Pak</a>.
     You may want to filter <a href="https://blog.yixuan-wang.site/academia">all academic posts</a>, or selected academic posts on <a href="https://blog.yixuan-wang.site/category/comp">computer science</a> and on <a href="https://blog.yixuan-wang.site/category/ling">linguistics</a>.
