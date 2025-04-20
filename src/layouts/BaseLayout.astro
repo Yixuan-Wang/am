@@ -1,4 +1,10 @@
 ---
+import "@fontsource-variable/inter/opsz.css";
+import "@fontsource-variable/roboto-slab";
+import "@fontsource-variable/jetbrains-mono";
+
+import "../styles/index.css";
+
 interface Props {
   title: string;
 }
@@ -31,46 +37,3 @@ const { title } = Astro.props;
     <slot />
   </body>
 </html>
-
-<style is:global>
-  @font-face {
-    font-family: Iosevka;
-    src: url("https://typeof.net/Iosevka/_next/static/media/Iosevka-Regular.6a70fa81.woff2")
-      format("woff2");
-    font-style: normal;
-    font-weight: 400;
-    font-stretch: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: Iosevka;
-    src: url("https://typeof.net/Iosevka/_next/static/media/Iosevka-Bold.f8027c0e.woff2")
-      format("woff2");
-    font-style: normal;
-    font-weight: 700;
-    font-stretch: normal;
-    font-display: swap;
-  }
-
-  html {
-    @apply bg-accent-100 @dark:bg-accent-900 text-plain h-full font-sans;
-  }
-
-  html {
-    scrollbar-width: thin;
-  }
-
-  em, i, strong {
-    @apply text-emph border-accent-600 @dark:border-accent-400;
-  }
-
-  a:not(.btn-icon) {
-    @apply border-gray-900 @dark:border-stone-200 border-b-1 border-dotted @hover:border-solid transition-lively;
-  }
-
-  *.colorful a:not(.btn-icon),
-  a.colorful {
-    @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-accent-600 @dark:border-accent-400 @hover:border-accent-500;
-  }
-</style>

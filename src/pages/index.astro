@@ -32,13 +32,13 @@ const now = format(new Date(), "yyyy-MM-dd");
       <div class="flex flex-col gap-3">
         <div class="flex flex-col items-start lg:(justify-self-end items-end)">
           <h1 class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2">
-            <span class="text-accent-800 @dark:text-accent-200">{name.first}</span>
+            <span class="text-emph">{name.first}</span>
             {name.middle ? <span class="font-normal lt-lg:text-xl">{name.middle}</span> : null}
             <span>{name.last}</span>
           </h1>
           <span>
-            {name.given ? <span>{name.family}<span class="text-accent-800 @dark:text-accent-200">{name.given}</span></span> : null}
-            <span class="font-mono ps-1">{name.ipa}</span>
+            {name.given ? <span>{name.family}<span class="text-emph">{name.given}</span></span> : null}
+            <span class="ps-1">{name.ipa}</span>
           </span>
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
