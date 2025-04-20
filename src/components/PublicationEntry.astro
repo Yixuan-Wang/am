@@ -13,25 +13,43 @@ function isMe(author: { firstName?: string; lastName?: string }) {
 <article class="publication">
   <div class="publication-title">{entry.fields.title}</div>
   <div class="publication-author">
-    {entry.fields.author?.map((author) => (
-      <div class:list={[
+    {entry.fields.author?.map((author, i) => (<Fragment>
+      {i > 0 ? <span>, </span> : null}
+      <span class:list={[
         isMe(author) ? "font-bold" : null,
-      ]}>{author.firstName} {author.lastName}</div>
-    ))}
+      ]}>{author.firstName} {author.lastName}</span>
+    </Fragment>))}
   </div>
   <div class="publication-link">
-    {entry.type === "misc" ? (
-      <span>Preprint</span>
-    ) : null}
-    {entry.fields.archiveprefix ? (
+    <span class="font-sans">
+      {entry.fields.pubstate === "prepublished" ? (
+        <span>Preprint</span>
+      ) : null}
+      {entry.fields.note ? (
+        <span>{entry.fields.note}</span>
+      ) : null}
+    </span>
+    <span>|</span>
+    {entry.fields.paper ? (
       <a
-        class="btn-icon"
-        href={`https://arxiv.org/abs/${entry.fields.eprint}`}
+        class="colorful"
+        href={entry.fields.paper}
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Paper"
+      >
+        <span>Paper</span>
+      </a>
+    ) : null}
+    {entry.fields.arxiv ? (
+      <a
+        class="colorful"
+        href={`https://arxiv.org/abs/${entry.fields.arxiv}`}
         target="_blank"
         rel="noopener noreferrer"
         title="arXiv"
       >
-        <div class="i-custom:arxiv"></div>
+        <span>arXiv</span> 
       </a>
     ) : null}
   </div>
@@ -58,22 +76,15 @@ function isMe(author: { firstName?: string; lastName?: string }) {
 
 .publication-author {
   display: flex;
-  gap: 0.25rem;
   font-family: var(--font-sans);
-}
-
-.publication-author > *:not(:last-child)::after {
-  content: ",";
+  white-space: pre;
 }
 
 .publication-link {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5ch;
   align-items: center;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
 }
 
-.publication-link .btn-icon {
-  font-size: 1.125rem;
-}
 </style>
