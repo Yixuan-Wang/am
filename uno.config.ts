@@ -102,7 +102,7 @@ export default defineConfig({
     ],
     "bg-box": "bg-accent-50 @dark:bg-accent-950",
     "btn-icon": "text-bright @hover:text-accent-500 cursor-pointer",
-    "card": "bg-box p-4 rounded-4",
+    "card": "bg-box px-4 pt-4 pb-6 rounded-4",
   },
   rules: [
     [

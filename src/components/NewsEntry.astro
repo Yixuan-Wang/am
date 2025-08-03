@@ -21,8 +21,8 @@ try {
 }
 ---
 
-<article class="contents">
-  <div class:list={[icon ?? "i-mdi:hand-pointing-right", "h-1lh", "text-emph", "justify-self-enter"]}></div>
-  <time class="font-mono text-[0.9rem] mt-[0.1rem] text-emph">{ formattedDate }</time>
-  <div class="font-serif" set:html={ content }></div>
+<article class="contents" data-date={date.toISOString()}>
+  <div class="news-icon" class:list={[icon ?? "i-mdi:hand-pointing-right", "h-1lh", "text-emph", "justify-self-enter"]}></div>
+  <time class="news-time font-mono text-[0.9rem] mt-[0.1rem] text-emph">{ formattedDate }</time>
+  <div class="news-content font-serif" set:html={ content }></div>
 </article>

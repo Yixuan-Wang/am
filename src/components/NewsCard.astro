@@ -42,6 +42,22 @@ const groupedNews = Object.entries(rawNews)
       ))
     }
   </div>
+  <script>
+    const newsRoot = document.getElementById("news")!;
+    const newsEntries = newsRoot.querySelectorAll("article");
+    const now = new Date();
+    newsEntries.forEach(entry => {
+      const dateStr = entry.dataset.date;
+      if (dateStr) {
+        const date = new Date(dateStr);
+        if (date > now) {
+          entry.classList.add("news-future");
+        } else {
+          entry.classList.add("news-past");
+        }
+      }
+    });
+  </script>
 </section>
 
 <style>
@@ -59,6 +75,20 @@ const groupedNews = Object.entries(rawNews)
     &:not(:first-child) {
       margin: 0.5rem 0;
     }
+  }
+}
+
+:global(#news .news-future) {
+  time, .news-icon {
+    @apply text-bright;
+  }
+
+  time {
+    font-weight: bold;
+  }
+
+  .news-content {
+    @apply text-emph;
   }
 }
 </style>
