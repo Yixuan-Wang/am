@@ -34,7 +34,7 @@ const now = format(new Date(), "yyyy-MM-dd");
           <h1 class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2">
             <span class="text-emph">{name.first}</span>
             {name.middle ? <span class="font-normal lt-lg:text-xl">{name.middle}</span> : null}
-            <span>{name.last}</span>
+            <span style="font-variant: small-caps">{name.last}</span>
           </h1>
           <span>
             {name.given ? <span>{name.family}<span class="text-emph">{name.given}</span></span> : null}
