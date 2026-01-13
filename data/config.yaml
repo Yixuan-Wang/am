@@ -32,6 +32,9 @@ nav:
   - name: Social
     id: social
     icon: i-mdi:circle-double
+  # - name: Palette
+  #   id: palette
+  #   icon: i-mdi:palette
 
 links:
   - name: GitHub

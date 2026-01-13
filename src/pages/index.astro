@@ -10,13 +10,14 @@ import NewsCard from "../components/NewsCard.astro";
 import BlogCard from "@/data/BlogCard.astro";
 import SocialCard from "../components/SocialCard.astro";
 import PublicationsCard from "../components/PublicationsCard.astro";
+// import PaletteCard from "../components/PaletteCard.astro";
 
 const { bio: rawBio, links, name } = Config;
 
 const bio = parseMarkdown(rawBio);
 const displayName = `${name.first} ${name.last}`;
 
-const now = format(new Date(), "yyyy-MM-dd");
+const builtOn = format(new Date(), "yyyy-MM-dd");
 ---
 
 <Layout title={displayName}>
@@ -28,10 +29,12 @@ const now = format(new Date(), "yyyy-MM-dd");
       id="portfolio"
       class="flex flex-col items-start px-2 lg:(flex-row-reverse items-end px-0 sticky top-12) gap-4"
     >
-      <div class="self-start flex-shrink w-[4lh] h-[4lh]">
+      <div
+        class="self-start flex-shrink w-[4lh] h-[4lh] rounded-full bg-accent-400 dark:bg-accent-500 overflow-hidden"
+      >
         <img
           id="avatar"
-          class="rounded-full"
+          class="w-full h-full object-cover grayscale mix-blend-luminosity transition-all hover:(grayscale-0 mix-blend-normal)"
           src="avatar.webp"
           alt={`${displayName}'s photo`}
         />
@@ -115,6 +118,8 @@ const now = format(new Date(), "yyyy-MM-dd");
       <BlogCard />
 
       <SocialCard />
+
+      <!-- <PaletteCard /> -->
 
       <script is:inline>
         /* Scoll Spy */
@@ -235,8 +240,6 @@ const now = format(new Date(), "yyyy-MM-dd");
       <p class="px-2">
         {displayName}
         &middot;
-        {now}
-        &middot;
         <span id="what-colors"></span>
         &middot;
         <a
@@ -244,11 +247,37 @@ const now = format(new Date(), "yyyy-MM-dd");
           rel="noopener"
           target="_blank">Am</a
         >
+        &middot;
+        {builtOn}
       </p>
 
       <script>
-        import { getColorsForDate } from "../logic/colors";
-        const colors = getColorsForDate(new Date());
+        import { getColorsForDate, COLORS } from "../logic/colors";
+        
+        // If the URL has ?color=INDEX, use that color index
+        const urlParams = new URLSearchParams(window.location.search);
+        const colorParam = urlParams.get("color");
+        const funParam = urlParams.get("fun");
+        
+        let colors = null;
+        if (colorParam) {
+          try {
+            colors = COLORS[parseInt(colorParam, 10) % 35 * 10];
+          } catch (error) {
+            console.error("Invalid color index in URL parameter:", colorParam);
+          }
+        }
+        
+        if (funParam !== null) {
+          colors = COLORS[Math.floor(Math.random() * 35) * 10];
+        }
+        
+        if (!colors) {
+          const today = new Date();
+          colors = getColorsForDate(today);
+        }
+
+       
         const colorIndex = colors[500].hue / 10;
         const colorName = colors[500].name;
 
@@ -266,9 +295,3 @@ const now = format(new Date(), "yyyy-MM-dd");
     </main>
   </div>
 </Layout>
-
-<style>
-  :root {
-    @apply use-accent-ocean;
-  }
-</style>

@@ -1,0 +1,46 @@
+---
+import CardTitle from "./CardTitle.astro";
+import { COLORS } from "../logic/colors";
+---
+
+<section id="palette" data-nav="palette" class="card flex flex-col gap-2">
+  <CardTitle icon="i-mdi:palette" title="Palette" />
+  <div class="flex flex-row flex-wrap w-fit gap-2 text-xl pt-1">
+    {
+      Object.values(COLORS).map((colors) => {
+        const primary = colors[500];
+        return (
+          <div
+            role="button"
+            class="i-mdi:circle cursor-pointer"
+            style={`color: ${primary.oklch}`}
+            data-colors={JSON.stringify(colors)}
+          />
+        );
+      })
+    }
+  </div>
+  
+  <script>
+  import type { ColorEntry } from "../logic/colors";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const colorButtons = document.querySelectorAll("#palette [role='button']");
+    colorButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const colors: Record<string, ColorEntry> = JSON.parse(button.getAttribute("data-colors")!);
+        const colorIndex = colors[500].hue / 10;
+        const colorName = colors[500].name;
+        
+        document.getElementById("what-colors")!.innerText =
+          `${colorIndex} ${colorName.charAt(0).toUpperCase() + colorName.slice(1)}`;
+        
+        const root = document.documentElement;
+        Object.entries(colors).forEach(([level, color]) => {
+          root.style.setProperty(`--accent-${level}`, color.oklch);
+        });
+      });
+    });
+  })
+  </script>
+</section>
