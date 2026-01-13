@@ -13,7 +13,6 @@ import PublicationsCard from "../components/PublicationsCard.astro";
 
 const { bio: rawBio, links, name } = Config;
 
-
 const bio = parseMarkdown(rawBio);
 const displayName = `${name.first} ${name.last}`;
 
@@ -21,41 +20,69 @@ const now = format(new Date(), "yyyy-MM-dd");
 ---
 
 <Layout title={displayName}>
-  <div id="index" class="min-h-full lt-lg:(flex flex-col gap-4) lg:(grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-8) items-start">
-    <header 
+  <div
+    id="index"
+    class="min-h-full lt-lg:(flex flex-col gap-4) lg:(grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-8) items-start"
+  >
+    <header
       id="portfolio"
       class="flex flex-col items-start px-2 lg:(flex-row-reverse items-end px-0 sticky top-12) gap-4"
     >
       <div class="self-start flex-shrink w-[4lh] h-[4lh]">
-        <img id="avatar" class="rounded-full" src="avatar.webp" alt={`${displayName}'s photo`}>
+        <img
+          id="avatar"
+          class="rounded-full"
+          src="avatar.webp"
+          alt={`${displayName}'s photo`}
+        />
       </div>
       <div class="flex flex-col gap-3">
         <div class="flex flex-col items-start lg:(justify-self-end items-end)">
-          <h1 class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2">
+          <h1
+            class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2"
+          >
             <span class="text-emph">{name.first}</span>
-            {name.middle ? <span class="font-normal lt-lg:text-xl">{name.middle}</span> : null}
+            {
+              name.middle ? (
+                <span class="font-normal lt-lg:text-xl">{name.middle}</span>
+              ) : null
+            }
             <span style="font-variant: small-caps">{name.last}</span>
           </h1>
           <span>
-            {name.given ? <span>{name.family}<span class="text-emph">{name.given}</span></span> : null}
+            {
+              name.given ? (
+                <span>
+                  {name.family}
+                  <span class="text-emph">{name.given}</span>
+                </span>
+              ) : null
+            }
             <span class="ps-1">{name.ipa}</span>
           </span>
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
-          {links.filter(({ important }) => important).map(({ icon, url }) => (<a
-            class="btn-icon"
-            href={url}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <div class={icon}></div>
-          </a>))}
+          {
+            links
+              .filter(({ important }) => important)
+              .map(({ icon, url }) => (
+                <a
+                  class="btn-icon"
+                  href={url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div class={icon} />
+                </a>
+              ))
+          }
         </div>
       </div>
     </header>
-    <div 
+    <div
       id="nav-container"
-      class="row-[2/3] lg:col-[1/2] self-start w-fit z-9 lg:justify-self-end sticky top-6">
+      class="row-[2/3] lg:col-[1/2] self-start w-fit z-9 lg:justify-self-end sticky top-6"
+    >
       <TheNav />
       <script is:inline>
         /* Sticky Nav */
@@ -66,7 +93,7 @@ const now = format(new Date(), "yyyy-MM-dd");
             navContainer.style.top = "1.5rem";
             return;
           }
-          
+
           const firstRowHeight = portfolio.getBoundingClientRect().height;
           navContainer.style.top = `calc(${firstRowHeight}px + 5rem)`;
         }
@@ -74,12 +101,11 @@ const now = format(new Date(), "yyyy-MM-dd");
         window.addEventListener("resize", stickyNav);
       </script>
     </div>
-    <main class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4">
-      <section
-        id="bio"
-        class="font-serif card colorful"
-      >
-        <Fragment set:html={ bio } />
+    <main
+      class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4"
+    >
+      <section id="bio" class="font-serif card colorful">
+        <Fragment set:html={bio} />
       </section>
 
       <NewsCard />
@@ -93,7 +119,7 @@ const now = format(new Date(), "yyyy-MM-dd");
       <script is:inline>
         /* Scoll Spy */
         const nav = document.getElementById("nav");
-        const sections = document.querySelectorAll("[data-nav]")
+        const sections = document.querySelectorAll("[data-nav]");
         const navItems = nav.querySelectorAll("[data-nav-item]");
         const navContainer = document.getElementById("nav-container");
         const scrollContainer = document.documentElement;
@@ -107,12 +133,15 @@ const now = format(new Date(), "yyyy-MM-dd");
 
         function scrollToSection(navItem) {
           try {
-            const section = document.getElementById(navItem.getAttribute("data-nav-item"));
+            const section = document.getElementById(
+              navItem.getAttribute("data-nav-item"),
+            );
             const navItemIndex = Array.from(navItems).indexOf(navItem);
 
             const r = ratio[navItemIndex];
 
-            const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            const maxScroll =
+              scrollContainer.scrollHeight - scrollContainer.clientHeight;
             const scrollTo = r * maxScroll;
 
             if (scrollTo === window.scrollY) {
@@ -120,26 +149,33 @@ const now = format(new Date(), "yyyy-MM-dd");
               return;
             }
 
-            document.documentElement.scrollTo({ top: scrollTo, behavior: "smooth" });
+            document.documentElement.scrollTo({
+              top: scrollTo,
+              behavior: "smooth",
+            });
           } catch (error) {
             focusNavItem(navItem);
-            return
+            return;
           }
         }
 
         function calculateRatio() {
-          const sectionPosition = Array.from(sections).map((section) => section.getBoundingClientRect().top + window.scrollY);
+          const sectionPosition = Array.from(sections).map(
+            (section) => section.getBoundingClientRect().top + window.scrollY,
+          );
           sectionPosition.push(scrollContainer.scrollHeight);
           const gaps = [
             sectionPosition[0],
-            ...sectionPosition.map((position, index, array) => {
-              if (index === array.length - 1) return null;
-              return array[index + 1] - position;
-            }).slice(0, -1),
-          ]
+            ...sectionPosition
+              .map((position, index, array) => {
+                if (index === array.length - 1) return null;
+                return array[index + 1] - position;
+              })
+              .slice(0, -1),
+          ];
           const gapSum = gaps.reduce((acc, gap) => acc + gap, 0);
           const gapRatio = gaps.map((gap) => gap / gapSum);
-          
+
           const gapRatioAccumulated = gapRatio.reduce((acc, ratio, index) => {
             const previous = index === 0 ? 0 : acc[index - 1];
             return [...acc, previous + ratio];
@@ -161,13 +197,20 @@ const now = format(new Date(), "yyyy-MM-dd");
         window.addEventListener("resize", updateRatioAttr);
 
         function focusCurrentItem() {
-          const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+          const maxScroll =
+            scrollContainer.scrollHeight - scrollContainer.clientHeight;
 
           const currentScroll = window.scrollY;
           const currentRatio = currentScroll / maxScroll;
 
-          let currentSectionIndex = ratio.findIndex((ratio) => ratio - currentRatio > 1e-6);
-          if (currentSectionIndex === -1 || currentSectionIndex > sections.length - 1) currentSectionIndex = sections.length - 1;
+          let currentSectionIndex = ratio.findIndex(
+            (ratio) => ratio - currentRatio > 1e-6,
+          );
+          if (
+            currentSectionIndex === -1 ||
+            currentSectionIndex > sections.length - 1
+          )
+            currentSectionIndex = sections.length - 1;
 
           focusNavItem(navItems[currentSectionIndex]);
         }
@@ -175,7 +218,8 @@ const now = format(new Date(), "yyyy-MM-dd");
         window.addEventListener("scroll", focusCurrentItem);
 
         function updateNavVisibility() {
-          const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+          const maxScroll =
+            scrollContainer.scrollHeight - scrollContainer.clientHeight;
           if (maxScroll <= 0) {
             navContainer.style.display = "none";
           } else {
@@ -195,35 +239,36 @@ const now = format(new Date(), "yyyy-MM-dd");
         &middot;
         <span id="what-colors"></span>
         &middot;
-        <a href="https://github.com/Yixuan-Wang/am" rel="noopener" target="_blank">Am</a>
+        <a
+          href="https://github.com/Yixuan-Wang/am"
+          rel="noopener"
+          target="_blank">Am</a
+        >
       </p>
-      
+
       <script>
-          import { getColorsForDate } from "../logic/colors";
-          const colors = getColorsForDate(new Date());
-          const colorIndex = colors[500].hue / 10;
-          const colorName = colors[500].name;
+        import { getColorsForDate } from "../logic/colors";
+        const colors = getColorsForDate(new Date());
+        const colorIndex = colors[500].hue / 10;
+        const colorName = colors[500].name;
 
-          document.addEventListener("DOMContentLoaded", () => {
-              document.getElementById("what-colors")!.innerText =
-                `${colorIndex} ${colorName.charAt(0).toUpperCase() + colorName.slice(1)}`;
+        document.addEventListener("DOMContentLoaded", () => {
+          document.getElementById("what-colors")!.innerText =
+            `${colorIndex} ${colorName.charAt(0).toUpperCase() + colorName.slice(1)}`;
 
-              // Set CSS variables to :root
-              const root = document.documentElement;
-              Object.entries(colors).forEach(([level, color]) => {
-                  root.style.setProperty(
-                      `--accent-${level}`,
-                      color.oklch,
-                  );
-              });
+          // Set CSS variables to :root
+          const root = document.documentElement;
+          Object.entries(colors).forEach(([level, color]) => {
+            root.style.setProperty(`--accent-${level}`, color.oklch);
           });
+        });
       </script>
     </main>
   </div>
 </Layout>
 
 <style>
-:root {
-  @apply use-accent-ocean;
-}
+  :root {
+    @apply use-accent-ocean;
+  }
 </style>
