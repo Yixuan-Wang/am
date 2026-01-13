@@ -193,8 +193,31 @@ const now = format(new Date(), "yyyy-MM-dd");
         &middot;
         {now}
         &middot;
+        <span id="what-colors"></span>
+        &middot;
         <a href="https://github.com/Yixuan-Wang/am" rel="noopener" target="_blank">Am</a>
       </p>
+      
+      <script>
+          import { getColorsForDate } from "../logic/colors";
+          const colors = getColorsForDate(new Date());
+          const colorIndex = colors[500].hue / 10;
+          const colorName = colors[500].name;
+
+          document.addEventListener("DOMContentLoaded", () => {
+              document.getElementById("what-colors")!.innerText =
+                `${colorIndex} ${colorName.charAt(0).toUpperCase() + colorName.slice(1)}`;
+
+              // Set CSS variables to :root
+              const root = document.documentElement;
+              Object.entries(colors).forEach(([level, color]) => {
+                  root.style.setProperty(
+                      `--accent-${level}`,
+                      color.oklch,
+                  );
+              });
+          });
+      </script>
     </main>
   </div>
 </Layout>
