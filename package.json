@@ -51,5 +51,11 @@
         "double"
       ]
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
