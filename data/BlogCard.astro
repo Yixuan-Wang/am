@@ -9,7 +9,15 @@ import CardTitle from "@/src/components/CardTitle.astro";
 >
   <CardTitle icon="i-mdi:circle" title="Blog" /> 
   <p class="font-serif">
-    For more writings, check out my blog, <a class="font-bold colorful" href="https://blog.yixuan-wang.site">Pak</a>.
-    You may want to filter <a href="https://blog.yixuan-wang.site/academia">all academic posts</a>, or selected topics such as <a href="https://blog.yixuan-wang.site/category/comp">computer science</a> and <a href="https://blog.yixuan-wang.site/category/ling">linguistics</a>.
+    For more writings, check out my blog, <a id="blog-link" class="font-bold colorful" href="https://blog.yixuan-wang.site/academia">Pak</a>.
   </p>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('fun')) {
+      document.addEventListener('DOMContentLoaded', () => {
+        const blogLink = document.getElementById('blog-link') as HTMLAnchorElement;
+        blogLink.href = 'https://blog.yixuan-wang.site';
+      });
+    }
+  </script>
 </section>
