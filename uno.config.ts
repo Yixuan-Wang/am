@@ -31,7 +31,7 @@ export default defineConfig({
   theme: {
     fontFamily: {
       sans: ['"Inter Variable"', 'sans-serif'],
-      serif: ['"Roboto Slab Variable"', 'serif'],
+      serif: ['"IBM Plex Sans Variable"', 'serif'],
       mono: ['"JetBrains Mono Variable"', 'monospace'],
     },
     colors: {
