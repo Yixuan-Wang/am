@@ -23,7 +23,7 @@
     "astro": "^5.16.9",
     "date-fns": "^4.1.0",
     "md4w": "^0.2.6",
-    "vite": "^7.3.1"
+    "vite": "^7.3.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.0.0",
