@@ -1,0 +1,53 @@
+---
+interface Props {
+  alt: string;
+}
+const { alt } = Astro.props;
+---
+
+<div
+  id="avatar-container"
+  class="self-start flex-shrink w-[4lh] h-[4lh] rounded-full bg-accent-400 dark:bg-accent-500 overflow-hidden relative cursor-pointer"
+>
+  <img
+    id="avatar"
+    class="w-full h-full object-cover grayscale transition-[filter] duration-500 ease-in-out"
+    src="avatar.webp"
+    alt={alt}
+  />
+</div>
+
+<style>
+  #avatar-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--accent-400);
+    mix-blend-mode: color;
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+    pointer-events: none;
+  }
+  #avatar-container:hover::after {
+    opacity: 0;
+  }
+  #avatar-container:hover #avatar {
+    filter: grayscale(0);
+  }
+  #avatar-container.revealed::after {
+    opacity: 0;
+  }
+  #avatar-container.revealed #avatar {
+    filter: grayscale(0);
+  }
+</style>
+
+<script>
+  const container = document.getElementById("avatar-container")!;
+  if (window.matchMedia("(hover: none)").matches) {
+    container.addEventListener("click", () => {
+      container.classList.toggle("revealed");
+    });
+  }
+</script>

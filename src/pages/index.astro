@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { parseMarkdown } from "../logic/markdown";
 
 import TheNav from "../components/TheNav.astro";
+import TheAvatar from "../components/TheAvatar.astro";
 
 import NewsCard from "../components/NewsCard.astro";
 import BlogCard from "@/data/BlogCard.astro";
@@ -29,16 +30,7 @@ const builtOn = format(new Date(), "yyyy-MM-dd");
       id="portfolio"
       class="flex flex-col items-start px-2 lg:(flex-row-reverse items-end px-0 sticky top-12) gap-4"
     >
-      <div
-        class="self-start flex-shrink w-[4lh] h-[4lh] rounded-full bg-accent-400 dark:bg-accent-500 overflow-hidden"
-      >
-        <img
-          id="avatar"
-          class="w-full h-full object-cover grayscale mix-blend-luminosity transition-all hover:(grayscale-0 mix-blend-normal)"
-          src="avatar.webp"
-          alt={`${displayName}'s photo`}
-        />
-      </div>
+      <TheAvatar alt={`${displayName}'s photo`} />
       <div class="flex flex-col gap-3">
         <div class="flex flex-col items-start lg:(justify-self-end items-end)">
           <h1
