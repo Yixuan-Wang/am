@@ -17,7 +17,7 @@ const publications = defineCollection<Entry>({
       return bib.entries.map(entry => ({
         ...entry,
         id: entry.key,
-      }));
+      })).reverse();
     }
   }),
 });
