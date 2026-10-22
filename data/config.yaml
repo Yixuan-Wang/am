@@ -41,9 +41,9 @@ links:
     icon: i-mdi:github
     url: https://github.com/Yixuan-Wang
     important: true
-  - name: Twitter
+  - name: X 
     icon: i-mdi:twitter
-    url: https://twitter.com/tom_yixuan_wang
+    url: https://x.com/tom_yixuan_wang
     important: true
   - name: Bluesky
     icon: i-custom:bluesky

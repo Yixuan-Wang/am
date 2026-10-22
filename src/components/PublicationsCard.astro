@@ -12,7 +12,7 @@ const rawPublications = await getCollection("publications");
   class="card flex flex-col gap-2"
 >
   <CardTitle icon="i-mdi:document" title="Publication" />
-  <div class="flex flex-col gap-3">
+  <div class="publication-list">
     {
       rawPublications.map(({ data }) => (
         <PublicationEntry key={data.id} entry={data} />
@@ -21,3 +21,10 @@ const rawPublications = await getCollection("publications");
   </div>
 </section>
 
+<style>
+.publication-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem 0.5ch;
+}
+</style>

@@ -30,9 +30,8 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   theme: {
     fontFamily: {
-      sans: ['"Inter Variable"', 'sans-serif'],
-      serif: ['"IBM Plex Sans Variable"', 'serif'],
-      mono: ['"JetBrains Mono Variable"', 'monospace'],
+      display: ['"Inter Variable"', '"Noto Sans CJK SC"', 'sans-serif'],
+      text: ['"IBM Plex Sans Variable"', 'sans-serif'],
     },
     colors: {
       accent: {
@@ -94,8 +93,7 @@ export default defineConfig({
     ],
   ],
   safelist: [
-    "font-sans",
-    "font-serif",
-    "font-mono",
+    "font-display",
+    "font-text",
   ]
 });

@@ -20,8 +20,8 @@ function isMe(author: { firstName?: string; lastName?: string }) {
       ]}>{author.firstName} {author.lastName}</span>
     </Fragment>))}
   </div>
-  <div class="publication-link">
-    <span class="font-sans">
+  <div class="publication-venue">
+    <span class="text-emph font-bold">
       {entry.fields.pubstate === "prepublished" ? (
         <span>Preprint</span>
       ) : null}
@@ -29,10 +29,11 @@ function isMe(author: { firstName?: string; lastName?: string }) {
         <span>{entry.fields.note}</span>
       ) : null}
     </span>
+  </div>
+  <div class="publication-link">
     <span>|</span>
     {entry.fields.paper ? (
       <a
-        class="colorful"
         href={entry.fields.paper}
         target="_blank"
         rel="noopener noreferrer"
@@ -43,7 +44,6 @@ function isMe(author: { firstName?: string; lastName?: string }) {
     ) : null}
     {entry.fields.arxiv ? (
       <a
-        class="colorful"
         href={`https://arxiv.org/abs/${entry.fields.arxiv}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -57,16 +57,18 @@ function isMe(author: { firstName?: string; lastName?: string }) {
 
 <style>
 .publication {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 0 0.5ch;
+  grid-template-columns: subgrid;
 }
 
 .publication-title {
   @apply text-emph;
+  grid-column: 1 / -1;
   font-weight: bold;
   line-height: 1.25rem;
-  font-family: var(--font-serif);
-  padding-bottom: 0.125rem;
+  font-family: var(--font-text);
 }
 
 .publication > *:not(.publication-title) {
@@ -75,16 +77,22 @@ function isMe(author: { firstName?: string; lastName?: string }) {
 }
 
 .publication-author {
+  grid-column: 1 / -1;
   display: flex;
-  font-family: var(--font-sans);
+  font-family: var(--font-text);
   white-space: pre;
+  padding-bottom: 0.125rem;
+}
+
+.publication-venue {
+  grid-column: 1;
 }
 
 .publication-link {
+  grid-column: 2;
   display: flex;
   gap: 0.5ch;
   align-items: center;
-  font-family: var(--font-mono);
 }
 
 </style>

@@ -1,11 +1,10 @@
 html {
-  @apply bg-accent-100 @dark:bg-accent-900 text-plain h-full font-sans;
+  @apply bg-accent-100 @dark:bg-accent-900 text-plain h-full font-display;
 }
 
 :root {
-  --font-sans: "Inter Variable", "Noto Sans CJK SC", sans-serif;
-  --font-serif: "IBM Plex Sans Variable", serif;
-  --font-mono: "JetBrains Mono Variable", monospace;
+  --font-display: "Inter Variable", "Noto Sans CJK SC", sans-serif;
+  --font-text: "IBM Plex Sans Variable", sans-serif;
 }
 
 html {
@@ -13,14 +12,19 @@ html {
 }
 
 em, i, strong {
-  @apply text-emph border-accent-600 @dark:border-accent-400;
+  @apply text-emph;
 }
 
 a:not(.btn-icon) {
-  @apply border-gray-900 @dark:border-stone-200 border-b-1 border-dotted @hover:border-solid transition-lively;
+  @apply @hover:decoration-solid transition-lively;
+  text-decoration: underline dotted 1px;
+  text-underline-position: under;
+  text-underline-offset: 0.25ex;
+  text-decoration-skip-ink: all;
+  text-decoration-skip-ink: auto;
 }
 
 *.colorful a:not(.btn-icon),
 a.colorful {
-  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500 border-accent-600 @dark:border-accent-400 @hover:border-accent-500;
+  @apply text-accent-600 @dark:text-accent-400 @hover:text-accent-500;
 }
