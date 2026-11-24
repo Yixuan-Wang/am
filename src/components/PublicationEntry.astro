@@ -1,33 +1,33 @@
 ---
 import type { Entry as BibEntry } from "@retorquere/bibtex-parser";
-import Config from "data/config.yaml"
+import Config from "data/config.yaml";
 
 const { entry } = Astro.props as { entry: BibEntry };
 
 function isMe(author: { firstName?: string; lastName?: string }) {
-  return author.firstName === Config.name.first && author.lastName === Config.name.last;
+  return (
+    author.firstName === Config.name.first &&
+    author.lastName === Config.name.last
+  );
 }
-
 ---
 
 <article class="publication">
   <div class="publication-title">{entry.fields.title}</div>
   <div class="publication-author">
-    {entry.fields.author?.map((author, i) => (<Fragment>
-      {i > 0 ? <span>, </span> : null}
-      <span class:list={[
-        isMe(author) ? "font-bold" : null,
-      ]}>{author.firstName} {author.lastName}</span>
-    </Fragment>))}
+    {entry.fields.author?.map((author, i) => (
+      <Fragment>
+        {i > 0 ? <span>, </span> : null}
+        <span class:list={[isMe(author) ? "font-bold" : null]}>
+          {author.firstName} {author.lastName}
+        </span>
+      </Fragment>
+    ))}
   </div>
   <div class="publication-venue">
     <span class="text-emph font-bold">
-      {entry.fields.pubstate === "prepublished" ? (
-        <span>Preprint</span>
-      ) : null}
-      {entry.fields.note ? (
-        <span>{entry.fields.note}</span>
-      ) : null}
+      {entry.fields.pubstate === "prepublished" ? <span>Preprint</span> : null}
+      {entry.fields.note ? <span>{entry.fields.note}</span> : null}
     </span>
   </div>
   <div class="publication-link">
@@ -49,50 +49,49 @@ function isMe(author: { firstName?: string; lastName?: string }) {
         rel="noopener noreferrer"
         title="arXiv"
       >
-        <span>arXiv</span> 
+        <span>arXiv</span>
       </a>
     ) : null}
   </div>
 </article>
 
 <style>
-.publication {
-  display: grid;
-  grid-column: 1 / -1;
-  gap: 0 0.5ch;
-  grid-template-columns: subgrid;
-}
+  .publication {
+    display: grid;
+    grid-column: 1 / -1;
+    gap: 0 0.5ch;
+    grid-template-columns: subgrid;
+  }
 
-.publication-title {
-  @apply text-emph;
-  grid-column: 1 / -1;
-  font-weight: bold;
-  line-height: 1.25rem;
-  font-family: var(--font-text);
-}
+  .publication-title {
+    @apply text-emph;
+    grid-column: 1 / -1;
+    font-weight: bold;
+    line-height: 1.25rem;
+    font-family: var(--font-text);
+  }
 
-.publication > *:not(.publication-title) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
+  .publication > *:not(.publication-title) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 
-.publication-author {
-  grid-column: 1 / -1;
-  display: flex;
-  font-family: var(--font-text);
-  white-space: pre;
-  padding-bottom: 0.125rem;
-}
+  .publication-author {
+    grid-column: 1 / -1;
+    display: flex;
+    font-family: var(--font-text);
+    white-space: pre;
+    padding-bottom: 0.125rem;
+  }
 
-.publication-venue {
-  grid-column: 1;
-}
+  .publication-venue {
+    grid-column: 1;
+  }
 
-.publication-link {
-  grid-column: 2;
-  display: flex;
-  gap: 0.5ch;
-  align-items: center;
-}
-
+  .publication-link {
+    grid-column: 2;
+    display: flex;
+    gap: 0.5ch;
+    align-items: center;
+  }
 </style>

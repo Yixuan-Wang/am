@@ -33,44 +33,36 @@ const builtOn = format(new Date(), "yyyy-MM-dd");
       <TheAvatar alt={`${displayName}'s photo`} />
       <div class="flex flex-col gap-3">
         <div class="flex flex-col items-start lg:(justify-self-end items-end)">
-          <h1
-            class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2"
-          >
+          <h1 class="inline-flex flex-row items-baseline lg:justify-end flex-wrap gap-1 font-bold text-3xl leading-6 pb-2">
             <span class="text-emph">{name.first}</span>
-            {
-              name.middle ? (
-                <span class="font-normal lt-lg:text-xl">{name.middle}</span>
-              ) : null
-            }
+            {name.middle ? (
+              <span class="font-normal lt-lg:text-xl">{name.middle}</span>
+            ) : null}
             <span style="font-variant: small-caps">{name.last}</span>
           </h1>
           <span>
-            {
-              name.given ? (
-                <span>
-                  {name.family}
-                  <span class="text-emph">{name.given}</span>
-                </span>
-              ) : null
-            }
+            {name.given ? (
+              <span>
+                {name.family}
+                <span class="text-emph">{name.given}</span>
+              </span>
+            ) : null}
             <span class="ps-1">{name.ipa}</span>
           </span>
         </div>
         <div class="lg:self-end flex flex-row w-fit gap-2 text-2xl">
-          {
-            links
-              .filter(({ important }) => important)
-              .map(({ icon, url }) => (
-                <a
-                  class="btn-icon"
-                  href={url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div class={icon} />
-                </a>
-              ))
-          }
+          {links
+            .filter(({ important }) => important)
+            .map(({ icon, url }) => (
+              <a
+                class="btn-icon"
+                href={url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div class={icon} />
+              </a>
+            ))}
         </div>
       </div>
     </header>
@@ -96,9 +88,7 @@ const builtOn = format(new Date(), "yyyy-MM-dd");
         window.addEventListener("resize", stickyNav);
       </script>
     </div>
-    <main
-      class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4"
-    >
+    <main class="row-[3/4] lt-lg:flex-1 lg:(row-[1/3] col-[2/3]) max-w-65ch min-h-full flex flex-col gap-4">
       <section id="bio" class="font-text card colorful">
         <Fragment set:html={bio} />
       </section>
@@ -231,45 +221,46 @@ const builtOn = format(new Date(), "yyyy-MM-dd");
 
       <p class="px-2">
         {displayName}
-        &middot;
+        &nbsp;&middot;&nbsp;
         <span id="what-colors"></span>
-        &middot;
+        &nbsp;&middot;&nbsp;
         <a
           href="https://github.com/Yixuan-Wang/am"
           rel="noopener"
-          target="_blank">Am</a
+          target="_blank"
         >
-        &middot;
+          Am
+        </a>
+        &nbsp;&middot;&nbsp;
         {builtOn}
       </p>
 
       <script>
         import { getColorsForDate, COLORS } from "../logic/colors";
-        
+
         // If the URL has ?color=INDEX, use that color index
         const urlParams = new URLSearchParams(window.location.search);
         const colorParam = urlParams.get("color");
         const funParam = urlParams.get("fun");
-        
+
         let colors = null;
         if (colorParam) {
           try {
-            colors = COLORS[parseInt(colorParam, 10) % 35 * 10];
+            colors = COLORS[(parseInt(colorParam, 10) % 35) * 10];
           } catch (error) {
             console.error("Invalid color index in URL parameter:", colorParam);
           }
         }
-        
+
         if (funParam !== null) {
           colors = COLORS[Math.floor(Math.random() * 35) * 10];
         }
-        
+
         if (!colors) {
           const today = new Date();
           colors = getColorsForDate(today);
         }
 
-       
         const colorIndex = colors[500].hue / 10;
         const colorName = colors[500].name;
 

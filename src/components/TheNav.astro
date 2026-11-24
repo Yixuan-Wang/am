@@ -4,67 +4,67 @@ import Config from "data/config.yaml";
 const { nav } = Config;
 ---
 
-<nav 
-  id="nav"
->
-  {nav.map(({ id, name, icon }, idx) => (<a
-    class="btn-icon h-8 w-8 rounded-full inline-flex items-center justify-center"
-    title={name}
-    data-nav-item={id}
-    data-active={idx === 0}
-  >
-    <div class={icon}></div>
-  </a>))}
+<nav id="nav">
+  {nav.map(({ id, name, icon }, idx) => (
+    <a
+      class="btn-icon h-8 w-8 rounded-full inline-flex items-center justify-center"
+      title={name}
+      data-nav-item={id}
+      data-active={idx === 0}
+    >
+      <div class={icon}></div>
+    </a>
+  ))}
 </nav>
 
 <style>
-#nav {
-  position: sticky;
-  top: 3rem;
-  display: flex;
-  outline-color: var(--accent-900);
-  align-items: center;
-  border-radius: 9999px;
-  background-color: var(--accent-50);
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-@media (prefers-color-scheme: dark) {
   #nav {
-    outline-color: var(--accent-500);
-    background-color: var(--accent-950);
-  }
-}
-
-@media (max-width: 1023.9px) {
-  #nav {
+    position: sticky;
+    top: 3rem;
     display: flex;
-    flex-direction: row;
-    padding: 0.5rem;
-    outline-width: 2px;
-    outline-style: solid;
+    outline-color: var(--accent-900);
+    align-items: center;
+    border-radius: 9999px;
+    background-color: var(--accent-50);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
-}
 
-@media (min-width: 1024px) {
-  #nav {
-    flex-direction: column;
-    padding: 0.25rem;
-    outline: none;
+  @media (prefers-color-scheme: dark) {
+    #nav {
+      outline-color: var(--accent-500);
+      background-color: var(--accent-950);
+    }
   }
-}
 
-[data-active] {
-  @apply transition-lively;
-  background-color: var(--accent-900);
-  color: var(--accent-100);
-}
+  @media (max-width: 1023.9px) {
+    #nav {
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+      outline-width: 2px;
+      outline-style: solid;
+    }
+  }
 
-@media (prefers-color-scheme: dark) {
+  @media (min-width: 1024px) {
+    #nav {
+      flex-direction: column;
+      padding: 0.25rem;
+      outline: none;
+    }
+  }
+
   [data-active] {
-    background-color: var(--accent-500);
-    color: var(--accent-900);
+    @apply transition-lively;
+    background-color: var(--accent-900);
+    color: var(--accent-100);
   }
-}
+
+  @media (prefers-color-scheme: dark) {
+    [data-active] {
+      background-color: var(--accent-500);
+      color: var(--accent-900);
+    }
+  }
 </style>

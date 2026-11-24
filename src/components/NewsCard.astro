@@ -1,52 +1,59 @@
 ---
 import NewsEntry from "../components/NewsEntry.astro";
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 import { aoeDate } from "../logic/time";
-import { compareDesc, subMonths } from 'date-fns';
+import { compareDesc, subMonths } from "date-fns";
 import type { CollectionEntry } from "astro:content";
 import CardTitle from "./CardTitle.astro";
 
 const cutoffDate = subMonths(new Date(), 18);
-const rawNews = await getCollection("news", (entry) => compareDesc(cutoffDate, entry.data.date) >= 0);
+const rawNews = await getCollection(
+  "news",
+  (entry) => compareDesc(cutoffDate, entry.data.date) >= 0,
+);
 
 const groupedNews = Object.entries(rawNews)
   .sort(([, a], [, b]) => compareDesc(a.data.date, b.data.date))
-  .reduce((groups, [key, entry]) => {
-    const year = entry.data.date.getFullYear();
-    if (!groups[year]) {
-      groups[year] = [];
-    }
-    groups[year].push([key, entry]);
-    return groups;
-  }, {} as Record<number, [string, CollectionEntry<"news">][]>);
+  .reduce(
+    (groups, [key, entry]) => {
+      const year = entry.data.date.getFullYear();
+      if (!groups[year]) {
+        groups[year] = [];
+      }
+      groups[year].push([key, entry]);
+      return groups;
+    },
+    {} as Record<number, [string, CollectionEntry<"news">][]>,
+  );
 ---
 
-<section
-  id="news"
-  data-nav="news"
-  class="card flex flex-col gap-2"
->
+<section id="news" data-nav="news" class="card flex flex-col gap-2">
   <CardTitle icon="i-mdi:bullhorn" title="News" />
   <div class="card-news">
-    {
-      Object
-        .entries(groupedNews)
-        .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
-        .map(([year, news]) => (
+    {Object.entries(groupedNews)
+      .sort(([a], [b]) => Number.parseInt(b) - Number.parseInt(a))
+      .map(([year, news]) => (
         <section class="contents">
           <h3>{year}</h3>
-          {news.map(([key, { body, data: { date, icon } }]) => (
-            <NewsEntry key={key} date={date} content={body} icon={icon} />
-          ))}
+          {news.map(
+            ([
+              key,
+              {
+                body,
+                data: { date, icon },
+              },
+            ]) => (
+              <NewsEntry key={key} date={date} content={body} icon={icon} />
+            ),
+          )}
         </section>
-      ))
-    }
+      ))}
   </div>
   <script>
     const newsRoot = document.getElementById("news")!;
     const newsEntries = newsRoot.querySelectorAll("article");
     const now = new Date();
-    newsEntries.forEach(entry => {
+    newsEntries.forEach((entry) => {
       const dateStr = entry.dataset.date;
       if (dateStr) {
         const date = new Date(dateStr);
@@ -61,38 +68,39 @@ const groupedNews = Object.entries(rawNews)
 </section>
 
 <style>
-.card-news {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  align-items: start;
-  gap: 0.5rem 0.5ch;
+  .card-news {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: start;
+    gap: 0.5rem 0.5ch;
 
-  & h3 {
-    grid-column: span 3;
-    font-size: 1.125rem;
-    font-weight: bold;
+    & h3 {
+      grid-column: span 3;
+      font-size: 1.125rem;
+      font-weight: bold;
 
-    &:not(:first-child) {
-      margin-top: 0.5rem;
+      &:not(:first-child) {
+        margin-top: 0.5rem;
+      }
     }
   }
-}
 
-:global(#news .news-future) {
-  time, .news-icon {
-    @apply text-bright;
-  }
+  :global(#news .news-future) {
+    time,
+    .news-icon {
+      @apply text-bright;
+    }
 
-  time {
-    font-weight: bold;
-  }
+    time {
+      font-weight: bold;
+    }
 
-  .news-content {
-    @apply text-emph;
-  }
+    .news-content {
+      @apply text-emph;
+    }
 
-  a {
-    @apply !text-emph;
+    a {
+      @apply !text-emph;
+    }
   }
-}
 </style>

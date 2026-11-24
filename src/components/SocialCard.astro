@@ -5,21 +5,19 @@ import CardTitle from "./CardTitle.astro";
 const { links } = Config;
 ---
 
-<section
-id="social"
-data-nav="social"
-class="card flex flex-col gap-2"
->
-<CardTitle icon="i-mdi:circle-double" title="Social" />
-<div class="flex flex-row w-fit gap-2 text-xl pt-1">
-  {links.map(({ icon, url, name }) => (<a
-    class="btn-icon"
-    href={url}
-    title={name}
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    <div class={icon}></div>
-  </a>))}
-</div> 
+<section id="social" data-nav="social" class="card flex flex-col gap-2">
+  <CardTitle icon="i-mdi:circle-double" title="Social" />
+  <div class="flex flex-row w-fit gap-2 text-xl pt-1">
+    {links.map(({ icon, url, name }) => (
+      <a
+        class="btn-icon"
+        href={url}
+        title={name}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div class={icon}></div>
+      </a>
+    ))}
+  </div>
 </section>

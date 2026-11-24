@@ -6,23 +6,33 @@ const { date, icon, content: rawContent } = Astro.props;
 
 let content;
 try {
-  content = parseMarkdown(rawContent)
+  content = parseMarkdown(rawContent);
 } catch (error) {
-  console.error('Error parsing markdown:', error);
+  console.error("Error parsing markdown:", error);
   content = rawContent;
 }
 
 let formattedDate;
 try {
-  formattedDate = formatAoe(date, 'MM/dd');
+  formattedDate = formatAoe(date, "MM/dd");
 } catch (error) {
-  console.error('Error formatting date:', error);
+  console.error("Error formatting date:", error);
   formattedDate = "???";
 }
 ---
 
 <article class="contents" data-date={date.toISOString()}>
-  <div class="news-icon" class:list={[icon ?? "i-mdi:hand-pointing-right", "h-1lh", "text-emph", "justify-self-enter"]}></div>
-  <time class="news-time text-[0.9rem] mt-[0.1rem] text-emph">{ formattedDate }</time>
-  <div class="news-content font-text" set:html={ content }></div>
+  <div
+    class="news-icon"
+    class:list={[
+      icon ?? "i-mdi:hand-pointing-right",
+      "h-1lh",
+      "text-emph",
+      "justify-self-enter",
+    ]}
+  ></div>
+  <time class="news-time text-[0.9rem] mt-[0.1rem] text-emph">
+    {formattedDate}
+  </time>
+  <div class="news-content font-text" set:html={content} />
 </article>
